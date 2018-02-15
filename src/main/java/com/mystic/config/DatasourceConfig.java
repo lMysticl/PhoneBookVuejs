@@ -1,15 +1,18 @@
 package com.mystic.config;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 /**
  * @author Putrenkov Pavlo
@@ -19,18 +22,20 @@ import javax.persistence.EntityManagerFactory;
 @EnableJpaRepositories(basePackages = "com.mystic.model.repository")
 public class DatasourceConfig {
 
-    @Value("${spring.datasource.url}")
-    private String MYSQL_ADDRESS ;
-
-    @Value("${spring.datasource.password}")
-    private String MYSQL_PASSWORD;
-    @Value("${spring.datasource.username}")
-    private String MYSQL_USER;
-
-
-    @Value("${spring.datasource.driver-class-name}")
-    private String MYSQL_DRIVER;
-
+//    @Value("${spring.datasource.url}")
+////    private String MYSQL_ADDRESS ;
+////
+////    @Value("${spring.datasource.password}")
+////    private String MYSQL_PASSWORD;
+////    @Value("${spring.datasource.username}")
+////    private String MYSQL_USER;
+////
+////
+////    @Value("${spring.datasource.driver-class-name}")
+////    private String MYSQL_DRIVER;
+    @Qualifier("dataSource")
+    @Autowired
+    private  DataSource dataSource;
 
 //    @Bean
 //    public DataSource datasource() {
@@ -58,17 +63,27 @@ public class DatasourceConfig {
 //
 //        return basicDataSource;
 //    }
+
+
     @Bean
-    public BasicDataSource dataSource() {
-
-        BasicDataSource basicDataSource = new BasicDataSource();
-//        basicDataSource.setDriverClassName(MYSQL_DRIVER);
-        basicDataSource.setUrl(MYSQL_ADDRESS);
-        basicDataSource.setUsername(MYSQL_USER);
-        basicDataSource.setPassword(MYSQL_PASSWORD);
-
-        return basicDataSource;
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+        return db;
     }
+
+
+//    @Bean
+//    public BasicDataSource dataSource() {
+//
+//        BasicDataSource basicDataSource = new BasicDataSource();
+////        basicDataSource.setDriverClassName(MYSQL_DRIVER);
+//        basicDataSource.setUrl(MYSQL_ADDRESS);
+//        basicDataSource.setUsername(MYSQL_USER);
+//        basicDataSource.setPassword(MYSQL_PASSWORD);
+//
+//        return basicDataSource;
+//    }
 
 
 
