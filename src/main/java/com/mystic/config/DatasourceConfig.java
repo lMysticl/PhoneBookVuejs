@@ -62,7 +62,7 @@ public class DatasourceConfig {
     public BasicDataSource dataSource() {
 
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName(MYSQL_DRIVER);
+//        basicDataSource.setDriverClassName(MYSQL_DRIVER);
         basicDataSource.setUrl(MYSQL_ADDRESS);
         basicDataSource.setUsername(MYSQL_USER);
         basicDataSource.setPassword(MYSQL_PASSWORD);
