@@ -10,8 +10,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * @author Putrenkov Pavlo
@@ -29,8 +27,6 @@ public class DatasourceConfig {
     @Value("${spring.datasource.username}")
     private String MYSQL_USER;
 
-    @Value("${spring.datasource.databaseschema}")
-    private String MYSQL_SCHEMA;
 
     @Value("${spring.datasource.driver-class-name}")
     private String MYSQL_DRIVER;
@@ -47,37 +43,32 @@ public class DatasourceConfig {
 //        return ds;
 //    }
 
-    @Bean
-    public BasicDataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
-
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-
-        return basicDataSource;
-    }
 //    @Bean
-//    public BasicDataSource dataSource() {
-////        URI dbUri = new URI(MYSQL_ADDRESS);
-////
-////        String username = dbUri.getUserInfo().split(":")[0];
-////        String password = dbUri.getUserInfo().split(":")[1];
-////        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+//    public BasicDataSource dataSource() throws URISyntaxException {
+//        URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
+//
+//        String username = dbUri.getUserInfo().split(":")[0];
+//        String password = dbUri.getUserInfo().split(":")[1];
+//        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
 //
 //        BasicDataSource basicDataSource = new BasicDataSource();
-//        basicDataSource.setDriverClassName(MYSQL_DRIVER);
-//        basicDataSource.setUrl(MYSQL_ADDRESS);
-//        basicDataSource.setUsername(MYSQL_USER);
-//        basicDataSource.setPassword(MYSQL_PASSWORD);
+//        basicDataSource.setUrl(dbUrl);
+//        basicDataSource.setUsername(username);
+//        basicDataSource.setPassword(password);
 //
 //        return basicDataSource;
 //    }
+    @Bean
+    public BasicDataSource dataSource() {
+
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setDriverClassName(MYSQL_DRIVER);
+        basicDataSource.setUrl(MYSQL_ADDRESS);
+        basicDataSource.setUsername(MYSQL_USER);
+        basicDataSource.setPassword(MYSQL_PASSWORD);
+
+        return basicDataSource;
+    }
 
 
 
