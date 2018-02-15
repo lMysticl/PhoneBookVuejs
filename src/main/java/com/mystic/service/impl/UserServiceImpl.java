@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         JSONObject obj = new JSONObject(data);
         User user = new User();
         user.setFirstname(obj.getString("firstname"));
-        user.setPassword(DigestUtils.sha256Hex(obj.getString("password").toLowerCase()));
+        user.setPassword(DigestUtils.sha256Hex(obj.getString("password")));
         user.setMiddlename(obj.getString("middlename"));
         user.setLastname(obj.getString("firstname"));
         user.setUsername(obj.getString("username"));
