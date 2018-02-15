@@ -31,6 +31,10 @@ public class UserControllerApi {
         return "User created";
     }
 
+    @GetMapping
+    public String helloWorld() {
+        return "hello World";
+    }
 
     @GetMapping(value = "/autosingin")
     public UserDTO autoSingIn() {
