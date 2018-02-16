@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         String username = obj.has("username") ? obj.getString("username") : "";
 
         if (userRepository.findByUsername(username) != null) {
-            throw new UsernameNotFoundException(username+"User exist");
+            throw new UsernameNotFoundException(username+" User exist");
         }
         user.setFirstname(firstname);
 
