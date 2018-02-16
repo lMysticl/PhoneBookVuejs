@@ -25,8 +25,10 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
-
     public User findByUsername(String username) throws UsernameNotFoundException {
+        if (userRepository.findByUsername(username) != null) {
+            throw new UsernameNotFoundException("Username not found");
+        }
         return userRepository.findByUsername(username);
     }
 
@@ -35,11 +37,14 @@ public class UserServiceImpl implements UserService {
         JSONObject obj = new JSONObject(data);
         User user = new User();
 
-        String  firstname = obj.has("firstname")?obj.getString("firstname"):"";
-        String  password = obj.has("password")?obj.getString("password"):"";
-        String  middlename = obj.has("middlename")?obj.getString("middlename"):"";
-        String  username = obj.has("username")?obj.getString("username"):"";
+        String firstname = obj.has("firstname") ? obj.getString("firstname") : "";
+        String password = obj.has("password") ? obj.getString("password") : "";
+        String middlename = obj.has("middlename") ? obj.getString("middlename") : "";
+        String username = obj.has("username") ? obj.getString("username") : "";
 
+        if (userRepository.findByUsername(username) != null) {
+            throw new UsernameNotFoundException(username+"User exist");
+        }
         user.setFirstname(firstname);
 
         user.setPassword(DigestUtils.sha256Hex(password));
@@ -53,6 +58,7 @@ public class UserServiceImpl implements UserService {
         user.addRole(roleRepository.findOne(1L));
 
         return user;
+
     }
 
     public void save(User user) {

@@ -32,10 +32,10 @@ public class ContactController {
 
     @GetMapping(value = "/contacts/get-all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
-    @ApiResponses(value = {//
-            @ApiResponse(code = 400, message = "Something went wrong"), //
-            @ApiResponse(code = 403, message = "Access denied"), //
-            @ApiResponse(code = 404, message = "The user doesn't exist"), //
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public List<Contact> returnAllContact() {
 
@@ -47,10 +47,14 @@ public class ContactController {
 
         return contactServiceImpl.getByUserId(userDTO.getUserId());
 
-
     }
 
     @PostMapping(value = "contacts/add")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 404, message = "The user doesn't exist"),
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public Contact addContact(Contact contact) {
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
@@ -58,6 +62,11 @@ public class ContactController {
     }
 
     @PostMapping(value = "contacts/delete")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 404, message = "The user doesn't exist"),
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void deleteContact(Contact contact) {
         if (contact != null) {
             contactServiceImpl.deleteByUserId(contact.getContactId());
@@ -65,6 +74,11 @@ public class ContactController {
     }
 
     @PostMapping(value = "contacts/deleteList")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 404, message = "The user doesn't exist"),
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void deleteContactList(String contactId) {
         if (contactId != null) {
             List<String> items = Arrays.asList(contactId.split(","));
@@ -76,6 +90,11 @@ public class ContactController {
 
 
     @PostMapping(value = "contacts/update")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 404, message = "The user doesn't exist"),
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void updateContact(Contact contact) {
         if (contact != null) {
             User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
