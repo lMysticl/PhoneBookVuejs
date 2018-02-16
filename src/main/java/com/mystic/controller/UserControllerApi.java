@@ -24,6 +24,7 @@ public class UserControllerApi {
     private UserService getUserService;
 
     @PostMapping(value = "/register")
+    @CrossOrigin(origins = "*")
     public String register(@RequestBody String data) {
 
         User user = getUserService.getUserService(data);
