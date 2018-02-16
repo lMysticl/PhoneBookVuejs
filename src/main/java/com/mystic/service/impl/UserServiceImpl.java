@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
+
     public User findByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
@@ -33,12 +34,25 @@ public class UserServiceImpl implements UserService {
     public User getUserService(@RequestBody String data) {
         JSONObject obj = new JSONObject(data);
         User user = new User();
-        user.setFirstname(obj.getString("firstname"));
-        user.setPassword(DigestUtils.sha256Hex(obj.getString("password")));
-        user.setMiddlename(obj.getString("middlename"));
-        user.setLastname(obj.getString("firstname"));
-        user.setUsername(obj.getString("username"));
+
+
+        String  firstname = obj.getString("firstname").isEmpty()?"":obj.getString("firstname");
+        String  password = obj.getString("password").isEmpty()?"":obj.getString("password");
+        String  middlename = obj.getString("middlename").isEmpty()?"":obj.getString("middlename");
+        String  username = obj.getString("username").isEmpty()?"":obj.getString("username");
+
+        user.setFirstname(firstname);
+
+        user.setPassword(DigestUtils.sha256Hex(password));
+
+        user.setMiddlename(middlename);
+
+        user.setLastname("");
+
+        user.setUsername(username);
+
         user.addRole(roleRepository.findOne(1L));
+
         return user;
     }
 
