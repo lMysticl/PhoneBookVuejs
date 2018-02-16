@@ -95,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/oauth/*", "user/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/oauth/*", "api/register").permitAll()
                 .antMatchers("/resources/**", "/register").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
