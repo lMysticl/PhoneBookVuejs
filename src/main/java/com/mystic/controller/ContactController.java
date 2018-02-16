@@ -56,7 +56,6 @@ public class ContactController {
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public Contact addContact(Contact contact) {
-        System.out.println(contact.toString());
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
         return contactServiceImpl.saveContact(contact);
