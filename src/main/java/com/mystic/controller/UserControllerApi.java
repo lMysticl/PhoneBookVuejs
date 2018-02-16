@@ -31,10 +31,9 @@ public class UserControllerApi {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public String register(@RequestBody String data) {
+    public void register(@RequestBody String data) {
         User user = getUserService.getUserService(data);
         userServiceImpl.save(user);
-        return "User created";
     }
 
     @GetMapping
