@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin(origins = "*",allowCredentials = "false",allowedHeaders = "*")
 public class UserControllerApi {
 
     private final UserServiceImpl userServiceImpl;
@@ -24,7 +25,7 @@ public class UserControllerApi {
     private UserService getUserService;
 
     @PostMapping(value = "/register")
-    @CrossOrigin(origins = "*")
+
     public String register(@RequestBody String data) {
 
         User user = getUserService.getUserService(data);

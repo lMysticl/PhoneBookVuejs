@@ -35,11 +35,10 @@ public class UserServiceImpl implements UserService {
         JSONObject obj = new JSONObject(data);
         User user = new User();
 
-
-        String  firstname = obj.getString("firstname").isEmpty()?"":obj.getString("firstname");
-        String  password = obj.getString("password").isEmpty()?"":obj.getString("password");
-        String  middlename = obj.getString("middlename").isEmpty()?"":obj.getString("middlename");
-        String  username = obj.getString("username").isEmpty()?"":obj.getString("username");
+        String  firstname = obj.has("firstname")?obj.getString("firstname"):"";
+        String  password = obj.has("password")?obj.getString("password"):"";
+        String  middlename = obj.has("middlename")?obj.getString("middlename"):"";
+        String  username = obj.has("username")?obj.getString("username"):"";
 
         user.setFirstname(firstname);
 
@@ -56,14 +55,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     public void save(User user) {
-//        user.setPassword(passwordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 

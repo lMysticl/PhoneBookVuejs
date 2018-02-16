@@ -54,8 +54,6 @@ public class ContactController {
     public Contact addContact(Contact contact) {
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
-        System.out.println("!!!!" + contact);
-
         return contactServiceImpl.saveContact(contact);
     }
 
@@ -68,14 +66,8 @@ public class ContactController {
 
     @PostMapping(value = "contacts/deleteList")
     public void deleteContactList(String contactId) {
-
-        System.out.println("contactId" + contactId);
-
-
         if (contactId != null) {
-            System.out.println("contactId!!!!!!! " + contactId);
             List<String> items = Arrays.asList(contactId.split(","));
-
             for (String item : items) {
                 contactServiceImpl.deleteByUserId(Long.valueOf(item));
             }
@@ -88,7 +80,6 @@ public class ContactController {
         if (contact != null) {
             User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             contact.setUserId(user.getUserId());
-            System.out.println("!!!!" + contact);
             contactServiceImpl.updateContact(contact);
         }
     }
