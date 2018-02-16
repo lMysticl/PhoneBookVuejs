@@ -13,7 +13,6 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +22,6 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
@@ -88,24 +86,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+//    @Override
+//    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
+//                .antMatchers("/api/**").authenticated()
+//                .and().httpBasic()
+//                .realmName(securityRealm)
+//                .and().cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+//                .and().csrf()
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .disable()
+//
+//        ;
+//    }
+//     @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring()
+//                .antMatchers(HttpMethod.OPTIONS);
+//    }
+
     @Override
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/oauth/*", "user/register").permitAll()
+                .antMatchers("/resources/**", "/register").permitAll()
                 .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
                 .and().httpBasic()
                 .realmName(securityRealm)
-                .and().cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-                .and().csrf()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .disable()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
 
-        ;
-    }
-     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS);
-    }
 }
