@@ -45,6 +45,9 @@ public class Contact implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "country")
+    private String country;
+
     @ManyToOne()
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @JsonIgnore
