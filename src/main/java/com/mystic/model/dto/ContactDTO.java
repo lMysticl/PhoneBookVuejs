@@ -21,11 +21,7 @@ public class ContactDTO {
 
     private String lastname;
 
-    private String middlename;
-
     private String mobilePhone;
-
-    private String homePhone;
 
     private String address;
 

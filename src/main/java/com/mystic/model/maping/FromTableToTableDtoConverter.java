@@ -21,8 +21,6 @@ public class FromTableToTableDtoConverter extends AbstractConverter<Contact, Con
             contactDTO.setContactId(contact.getContactId());
             contactDTO.setFirstname(contact.getFirstname());
             contactDTO.setLastname(contact.getLastname());
-            contactDTO.setMiddlename(contact.getMiddlename());
-            contactDTO.setHomePhone(contact.getMiddlename());
             contactDTO.setUser(contact.getUser());
             contactDTO.setUserId(contact.getUserId());
             contactDTO.setMobilePhone(contact.getMobilePhone());

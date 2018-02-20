@@ -38,17 +38,16 @@ public class User implements Serializable {
     @Column(name = "username")
     private String username;
 
-
     @Column(name = "password")
     @JsonIgnore
     private String password;
 
     @Column(name = "firstname")
     private String firstname;
+
     @Column(name = "lastname")
     private String lastname;
-    @Column(name = "middlename")
-    private String middlename;
+
     @OneToMany(mappedBy = "user")
     private List<Contact> contacts = new ArrayList<>();
 

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
         String firstname = obj.has("firstname") ? obj.getString("firstname") : "";
         String password = obj.has("password") ? obj.getString("password") : "";
-        String middlename = obj.has("middlename") ? obj.getString("middlename") : "";
+
         String username = obj.has("username") ? obj.getString("username") : "";
 
         if (userRepository.findByUsername(username) != null) {
@@ -48,8 +48,6 @@ public class UserServiceImpl implements UserService {
         user.setFirstname(firstname);
 
         user.setPassword(DigestUtils.sha256Hex(password));
-
-        user.setMiddlename(middlename);
 
         user.setLastname("");
 

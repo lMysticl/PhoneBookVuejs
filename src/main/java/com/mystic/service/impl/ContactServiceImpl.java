@@ -33,10 +33,8 @@ public class ContactServiceImpl {
                 contact.getContactId(),
                 contact.getFirstname(),
                 contact.getLastname(),
-                contact.getMiddlename(),
                 contact.getCountry(),
                 contact.getMobilePhone(),
-                contact.getHomePhone(),
                 contact.getAddress(),
                 contact.getEmail());
     }

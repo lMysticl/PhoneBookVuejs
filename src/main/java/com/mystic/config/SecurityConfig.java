@@ -86,27 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//    @Override
-//    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
-//                .antMatchers("/api/**").authenticated()
-//                .and().httpBasic()
-//                .realmName(securityRealm)
-//                .and().cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-//                .and().csrf()
-//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .disable()
-//
-//        ;
-//    }
-//     @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring()
-//                .antMatchers(HttpMethod.OPTIONS);
-//    }
-
     @Override
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected void configure(HttpSecurity http) throws Exception {

@@ -31,14 +31,8 @@ public class Contact implements Serializable {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "middlename")
-    private String middlename;
-
     @Column(name = "mobile_phone")
     private String mobilePhone;
-
-    @Column(name = "home_phone")
-    private String homePhone;
 
     @Column(name = "address")
     private String address;
