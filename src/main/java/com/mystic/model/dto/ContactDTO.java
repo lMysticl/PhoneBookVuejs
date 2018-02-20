@@ -31,6 +31,8 @@ public class ContactDTO {
 
     private String email;
 
+    private String country;
+
     private User user;
 
 }

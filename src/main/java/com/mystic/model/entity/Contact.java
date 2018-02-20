@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 public class Contact implements Serializable {
 
     @Id
@@ -53,18 +54,4 @@ public class Contact implements Serializable {
     @JsonIgnore
     private User user;
 
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "contactId=" + contactId +
-                ", userId=" + userId +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", middlename='" + middlename + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", homePhone='" + homePhone + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

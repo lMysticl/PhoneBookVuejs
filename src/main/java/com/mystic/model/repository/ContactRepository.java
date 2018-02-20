@@ -21,12 +21,13 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
     Contact saveAndFlush(Contact contact);
 
     @Modifying
-    @Query(value = "UPDATE Contacts SET firstname = ?2, lastname = ?3, middlename = ?4, mobile_phone = ?5, home_phone = ?6, address = ?7, email = ?8 WHERE contact_id = ?1", nativeQuery = true)
+    @Query(value = "UPDATE Contacts SET firstname = ?2, lastname = ?3, middlename = ?4,country =?5, mobile_phone = ?6, home_phone = ?7, address = ?8, email = ?9 WHERE contact_id = ?1", nativeQuery = true)
     @Transactional
     void updateContact(Long contactId,
                        String firstname,
                        String lastname,
                        String middlename,
+                       String country,
                        String mobilePhone,
                        String homePhone,
                        String address,

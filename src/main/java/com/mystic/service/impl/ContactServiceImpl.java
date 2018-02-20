@@ -34,6 +34,7 @@ public class ContactServiceImpl {
                 contact.getFirstname(),
                 contact.getLastname(),
                 contact.getMiddlename(),
+                contact.getCountry(),
                 contact.getMobilePhone(),
                 contact.getHomePhone(),
                 contact.getAddress(),
