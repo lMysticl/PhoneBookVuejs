@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,19 +56,19 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public Contact addContact(Contact contact) {
+    public Contact addContact(@Valid Contact contact) {
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
         return contactServiceImpl.saveContact(contact);
     }
 
     @PostMapping(value = "contacts/delete")
-    @ApiResponses(value = {
+    @ApiResponses( value = {
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void deleteContact(Contact contact) {
+    public void deleteContact(@Valid Contact contact) {
         if (contact != null) {
             contactServiceImpl.deleteByUserId(contact.getContactId());
         }
@@ -79,7 +80,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void deleteContactList(String contactId) {
+    public void deleteContactList(@Valid String contactId) {
         if (contactId != null) {
             List<String> items = Arrays.asList(contactId.split(","));
             for (String item : items) {
@@ -95,7 +96,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void updateContact(Contact contact) {
+    public void updateContact(@Valid Contact contact) {
         if (contact != null) {
             User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             contact.setUserId(user.getUserId());

@@ -1,5 +1,6 @@
 package com.mystic.service;
 
+import com.mystic.exceptions.RegistrationException;
 import com.mystic.model.entity.User;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface UserService {
 
     List<User> findAll();
 
-    User getUserService(String data);
+    User getUserService(String data) throws RegistrationException;
 }

@@ -1,5 +1,6 @@
 package com.mystic.service.impl;
 
+import com.mystic.exceptions.RegistrationException;
 import com.mystic.model.entity.User;
 import com.mystic.model.repository.RoleRepository;
 import com.mystic.model.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Putrenkov Pavlo
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public User getUserService(@RequestBody String data) {
+    public User getUserService(@RequestBody String data) throws RegistrationException {
         JSONObject obj = new JSONObject(data);
         User user = new User();
 
@@ -42,9 +44,9 @@ public class UserServiceImpl implements UserService {
 
         String username = obj.has("username") ? obj.getString("username") : "";
 
-        if (userRepository.findByUsername(username) != null) {
-            throw new UsernameNotFoundException(username+" User exist");
-        }
+        Optional<User> byUsername = Optional.ofNullable(userRepository.findByUsername(username));
+        byUsername.orElseThrow(()->new RegistrationException(username+" User exist"));
+
         user.setFirstname(firstname);
 
         user.setPassword(DigestUtils.sha256Hex(password));

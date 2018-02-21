@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +36,22 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long userId;
+
     @Column(name = "username")
+    @Size(min=2, max=20)
     private String username;
 
     @Column(name = "password")
     @JsonIgnore
+    @Size(min=2, max=50)
     private String password;
 
     @Column(name = "firstname")
+    @Size(min=2, max=50)
     private String firstname;
 
     @Column(name = "lastname")
+    @Size(min=2, max=50)
     private String lastname;
 
     @OneToMany(mappedBy = "user")
