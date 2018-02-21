@@ -47,11 +47,11 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "firstname")
-    @Size(min=2, max=50)
+    @Size(max=50)
     private String firstname;
 
     @Column(name = "lastname")
-    @Size(min=2, max=50)
+    @Size(max=50)
     private String lastname;
 
     @OneToMany(mappedBy = "user")
