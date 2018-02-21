@@ -32,7 +32,7 @@ public class Contact implements Serializable {
 
     @Column(name = "firstname")
     @NotNull
-    @Size(min=2, max=30)
+    @Size( max=30)
     private String firstname;
 
     @Column(name = "lastname")
