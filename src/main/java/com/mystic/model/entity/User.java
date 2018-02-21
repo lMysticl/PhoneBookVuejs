@@ -38,12 +38,12 @@ public class User implements Serializable {
     private long userId;
 
     @Column(name = "username")
-    @Size(min=2, max=20)
+    @Size(max=20)
     private String username;
 
     @Column(name = "password")
     @JsonIgnore
-    @Size(min=2, max=50)
+    @Size(max=50)
     private String password;
 
     @Column(name = "firstname")

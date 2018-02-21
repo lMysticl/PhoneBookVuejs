@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public Contact addContact(@Valid Contact contact) {
+    public Contact addContact(Contact contact) {
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
         return contactServiceImpl.saveContact(contact);
@@ -96,7 +95,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void updateContact(@Valid Contact contact) {
+    public void updateContact(Contact contact) {
         if (contact != null) {
             User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             contact.setUserId(user.getUserId());
