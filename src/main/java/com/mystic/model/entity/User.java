@@ -1,10 +1,7 @@
 package com.mystic.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +31,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
+    @NonNull
     private long userId;
 
     @Column(name = "username")
@@ -41,6 +39,7 @@ public class User implements Serializable {
 
     @Column(name = "password")
     @JsonIgnore
+    @NonNull
     private String password;
 
     @Column(name = "firstname")
