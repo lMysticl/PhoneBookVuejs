@@ -44,7 +44,7 @@ public class UserControllerApi {
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public String helloWorld() {
-        return "hello World";
+        return "API";
     }
 
     @GetMapping(value = "/autosingin")
