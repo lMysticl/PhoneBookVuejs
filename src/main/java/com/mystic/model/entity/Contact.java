@@ -36,23 +36,24 @@ public class Contact implements Serializable {
     private String firstname;
 
     @Column(name = "lastname")
-    @Size(min=2, max=30)
+    @Size( max=30)
     private String lastname;
 
     @Column(name = "mobile_phone")
-    @Size(min=2, max=20)
+    @Size( max=20)
+    @NotNull
     private String mobilePhone;
 
     @Column(name = "address")
-    @Size(min=2, max=50)
+    @Size( max=50)
     private String address;
 
     @Column(name = "email")
-    @Size(min=2, max=20)
+    @Size( max=20)
     private String email;
 
     @Column(name = "country")
-    @Size(min=2, max=20)
+    @Size(max=20)
     private String country;
 
     @ManyToOne()
