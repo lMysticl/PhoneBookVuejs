@@ -1,7 +1,10 @@
 package com.mystic.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,12 +37,10 @@ public class User implements Serializable {
     private long userId;
 
     @Column(name = "username")
-    @NonNull
     private String username;
 
     @Column(name = "password")
     @JsonIgnore
-    @NonNull
     private String password;
 
     @Column(name = "firstname")
@@ -65,4 +66,5 @@ public class User implements Serializable {
     public void removeRole(Role role) {
         roles.remove(role);
         role.getUsers().remove(this);    }
+
 }

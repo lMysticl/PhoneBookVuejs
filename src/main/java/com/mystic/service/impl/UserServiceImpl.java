@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Putrenkov Pavlo
@@ -36,16 +35,19 @@ public class UserServiceImpl implements UserService {
 
 
     public User getUserService(@RequestBody String data) throws RegistrationException {
+
         JSONObject obj = new JSONObject(data);
         User user = new User();
 
         String firstname = obj.has("firstname") ? obj.getString("firstname") : "";
+
         String password = obj.has("password") ? obj.getString("password") : "";
 
         String username = obj.has("username") ? obj.getString("username") : "";
 
-        Optional<User> byUsername = Optional.ofNullable(userRepository.findByUsername(username));
-        byUsername.orElseThrow(()->new RegistrationException(username+" User exist"));
+        if (userRepository.findByUsername(username) != null) {
+            throw new RegistrationException(username + " User exist");
+        }
 
         user.setFirstname(firstname);
 
