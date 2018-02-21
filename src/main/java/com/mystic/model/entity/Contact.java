@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -32,28 +31,22 @@ public class Contact implements Serializable {
 
     @Column(name = "firstname")
     @NotNull
-    @Size( max=30)
     private String firstname;
 
     @Column(name = "lastname")
-    @Size( max=30)
     private String lastname;
 
     @Column(name = "mobile_phone")
-    @Size( max=20)
     @NotNull
     private String mobilePhone;
 
     @Column(name = "address")
-    @Size( max=50)
     private String address;
 
     @Column(name = "email")
-    @Size( max=20)
     private String email;
 
     @Column(name = "country")
-    @Size(max=20)
     private String country;
 
     @ManyToOne()
