@@ -68,7 +68,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void deleteContact(@Valid Contact contact) {
+    public void deleteContact(Contact contact) {
         if (contact != null) {
             contactServiceImpl.deleteByUserId(contact.getContactId());
         }
@@ -80,7 +80,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void deleteContactList(@Valid String contactId) {
+    public void deleteContactList(String contactId) {
         if (contactId != null) {
             List<String> items = Arrays.asList(contactId.split(","));
             for (String item : items) {
