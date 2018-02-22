@@ -9,8 +9,11 @@ public interface ValidationService {
     Pattern PHONE_PATTERN = Pattern
             .compile("^(\\(?\\+?[0-9]*\\)?)?[0-9_\\- \\(\\)]{7,20}$");
     Pattern EMAIL_PATTERN = Pattern
-            .compile(("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$"));
+            .compile(("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,4})+$"));
     Pattern PASSWORD_PATTERN = Pattern
+            .compile("^[a-zA-Z0-9\\--\\-!\\-@\\-#\\-$\\-*\\-.\\-,\\-(\\-)\\-+]{6,20}$");
+
+    Pattern CONTACT_ID_PATTERN = Pattern
             .compile("^[a-zA-Z0-9\\--\\-!\\-@\\-#\\-$\\-*\\-.\\-,\\-(\\-)\\-+]{6,20}$");
 
     boolean validate(String message);
@@ -23,5 +26,5 @@ public interface ValidationService {
 
     boolean isPasswordValid(String password);
 
-
+    boolean isContactId(String contactId);
 }

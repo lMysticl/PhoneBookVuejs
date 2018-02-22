@@ -64,4 +64,11 @@ public class ValidationServiceImpl implements ValidationService {
     public boolean isPasswordValid(String password) {
         return PASSWORD_PATTERN.matcher(password).matches();
     }
+
+    @Override
+    public boolean isContactId(String contactId) {
+        return CONTACT_ID_PATTERN.matcher(contactId).matches();
+    }
+
+
 }

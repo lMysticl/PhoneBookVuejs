@@ -7,6 +7,7 @@ import com.mystic.model.entity.User;
 import com.mystic.service.impl.ContactServiceImpl;
 import com.mystic.service.impl.UserServiceImpl;
 import com.mystic.validation.ValidationContact;
+import com.mystic.validation.ValidationService;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,8 @@ public class ContactController {
 
     private final ValidationContact validateContact;
 
+    private final ValidationService validation;
+
     @GetMapping(value = "/contacts/get-all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
     @ApiResponses(value = {
@@ -60,6 +63,7 @@ public class ContactController {
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public Contact addContact(Contact contact) throws ContactExeption {
+
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
         validateContact.validateContact(contact);
@@ -75,7 +79,7 @@ public class ContactController {
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void deleteContact(Contact contact) throws ContactExeption {
         if (contact != null) {
-            validateContact.validateContact(contact);
+            validation.isContactId(String.valueOf(contact.getContactId()));
             contactServiceImpl.deleteByUserId(contact.getContactId());
         }
     }
@@ -88,6 +92,7 @@ public class ContactController {
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void deleteContactList(String contactId) {
         if (contactId != null) {
+            validation.isContactId(String.valueOf(contactId));
             List<String> items = Arrays.asList(contactId.split(","));
             contactServiceImpl.deleteSomeUser(items);
         }
