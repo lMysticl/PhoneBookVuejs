@@ -89,9 +89,7 @@ public class ContactController {
     public void deleteContactList(String contactId) {
         if (contactId != null) {
             List<String> items = Arrays.asList(contactId.split(","));
-            for (String item : items) {
-                contactServiceImpl.deleteByUserId(Long.valueOf(item));
-            }
+            contactServiceImpl.deleteSomeUser(items);
         }
     }
 

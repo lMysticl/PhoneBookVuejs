@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Ignore
+
 public class AddRandomContactsTest {
 
     @Autowired
@@ -42,12 +41,11 @@ public class AddRandomContactsTest {
 
     @Before
     public void setUp() {
-        user= getUserService.findById(11L);
+        user= getUserService.findById(492L);
     }
 
 
     @Test
-    @Ignore
     public void getClientFromExcel() throws IOException, ParseException {
 
 
@@ -76,7 +74,7 @@ public class AddRandomContactsTest {
             String address = jsonObject.has("address") ? jsonObject.getString("address") : "";
 
             Contact contact = new Contact();
-            contact.setUserId(11L);
+            contact.setUserId(492L);
             contact.setUser(user);
             contact.setFirstname(firstname);
             contact.setMobilePhone(phone_number);

@@ -4,8 +4,10 @@ import com.mystic.model.entity.Contact;
 import com.mystic.model.repository.ContactRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Putrenkov Pavlo
@@ -16,7 +18,13 @@ public class ContactServiceImpl {
 
     private ContactRepository contactRepository;
 
-    public ArrayList<Contact> getByUserId(Long userId) {
+
+    @Transactional
+    public void deleteSomeUser(List<String> ids) {
+        contactRepository.deleteContactWithIds(ids);
+    }
+
+        public ArrayList<Contact> getByUserId(Long userId) {
         return contactRepository.findByUserId(userId);
     }
 

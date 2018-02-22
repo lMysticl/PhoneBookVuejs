@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,5 +31,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
                        String mobilePhone,
                        String address,
                        String email);
-
+    @Modifying
+    @Query(value = "delete from heroku_97c29fa23a87141.contacts where contact_id IN ?1", nativeQuery = true)
+    void deleteContactWithIds(List<String> ids);
 }
