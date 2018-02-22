@@ -228,6 +228,11 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>2.0.3</version>
                 <configuration>
+                    <jdkVersion>1.8</jdkVersion>
+                    <configVars>
+                        <MY_VAR>SomeValue</MY_VAR>
+                        <JAVA_OPTS>-Xss512k -XX:+UseCompressedOops</JAVA_OPTS>
+                    </configVars>
                     <includeTarget>false</includeTarget>
                     <includes>
                         <include>${project.build.directory}/${project.artifactId}-${project.version}.jar</include>
@@ -236,6 +241,7 @@
                         <web>java -Dserver.port=$PORT -jar target/${project.artifactId}-${project.version}.jar</web>
                     </processTypes>
                 </configuration>
+
             </plugin>
         </plugins>
 
