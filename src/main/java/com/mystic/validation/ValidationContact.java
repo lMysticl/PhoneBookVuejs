@@ -26,8 +26,6 @@ public class ValidationContact {
             throw new ContactExeption("Last name is not valid");
         }
         if (!validation.isPhoneValid(contact.getMobilePhone())) {
-            System.out.println(contact.getMobilePhone());
-            System.out.println(validation.isPhoneValid(contact.getMobilePhone()));
             throw new ContactExeption("Phone is not valid");
         }
     }

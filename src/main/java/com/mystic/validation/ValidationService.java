@@ -9,7 +9,7 @@ public interface ValidationService {
     Pattern PHONE_PATTERN = Pattern
             .compile("^(\\(?\\+?[0-9]*\\)?)?[0-9_\\- \\(\\)]{7,20}$");
     Pattern EMAIL_PATTERN = Pattern
-            .compile(("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"));
+            .compile(("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$"));
     Pattern PASSWORD_PATTERN = Pattern
             .compile("^[a-zA-Z0-9\\--\\-!\\-@\\-#\\-$\\-*\\-.\\-,\\-(\\-)\\-+]{6,20}$");
 
