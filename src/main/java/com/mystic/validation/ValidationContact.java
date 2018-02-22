@@ -22,7 +22,7 @@ public class ValidationContact {
         if (!validation.isNameValid(contact.getFirstname())) {
             throw new ContactExeption("First name is not valid");
         }
-        if (!validation.isNameValid(contact.getLastname())) {
+        if (!validation.isNameValid(contact.getLastname()) & !contact.getLastname().equals("")) {
             throw new ContactExeption("Last name is not valid");
         }
         if (!validation.isPhoneValid(contact.getMobilePhone())) {
