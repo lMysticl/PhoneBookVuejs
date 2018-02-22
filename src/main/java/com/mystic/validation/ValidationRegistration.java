@@ -20,7 +20,7 @@ public class ValidationRegistration {
 
     public void validation(String firstname, String password, String username) throws RegistrationException {
 
-        if (validationService.isNameValid(firstname)) {
+        if (!validationService.isNameValid(firstname) & !firstname.equals("")) {
             throw new RegistrationException(firstname + "Firstname is not valid");
         }
         if (!validationService.isPasswordValid(password)) {
