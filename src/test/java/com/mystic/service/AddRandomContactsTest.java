@@ -65,7 +65,7 @@ public class AddRandomContactsTest {
         }
         JSONArray copy = new JSONArray(list);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 20; i++) {
             String s = copy.get(i).toString();
 
             JSONObject jsonObject = new JSONObject(s);

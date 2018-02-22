@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public interface ValidationService {
 
     Pattern NAME_PATTERN = Pattern
-            .compile("^[а-яА-ЯёЁa-zA-Z\\-]{3,40}$");
+            .compile("^[а-яА-ЯёЁa-zA-Z0-9\\-]{3,40}$");
     Pattern PHONE_PATTERN = Pattern
             .compile("^[0-9\\-]{7,20}$");
     Pattern EMAIL_PATTERN = Pattern

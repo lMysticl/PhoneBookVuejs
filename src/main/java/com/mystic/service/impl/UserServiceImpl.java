@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     public User getUserService(@RequestBody String data) throws RegistrationException {
 
-        JSONObject copy = new JSONObject(data, JSONObject.getNames(data));
+        JSONObject copy = new JSONObject(data);
 
         User user = new User();
 
@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
 
         String username = copy.has("username") ? copy.getString("username") : "";
 
-
-        validationRegistration.validation(firstname, password, username);
+        System.out.println("copy "+copy.toString());
+        validationRegistration.validation(firstname, username);
 
 
 

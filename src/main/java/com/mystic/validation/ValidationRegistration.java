@@ -18,18 +18,21 @@ public class ValidationRegistration {
 
     private ValidationService validationService;
 
-    public void validation(String firstname, String password, String username) throws RegistrationException {
+    public void validation(String firstname,  String username) throws RegistrationException {
 
         if (!validationService.isNameValid(firstname) & !firstname.equals("")) {
             throw new RegistrationException(firstname + "Firstname is not valid");
         }
-        if (!validationService.isPasswordValid(password)) {
-            throw new RegistrationException("Password is not valid");
-        }
+
         if (!validationService.isNameValid(username)) {
+            System.out.println(validationService.isNameValid(username));
             throw new RegistrationException("Username is not valid");
         }
 
+        userExist(username);
+    }
+
+    public void userExist(String username) throws RegistrationException {
         if (userRepository.findByUsername(username) != null) {
             throw new RegistrationException(username + " User exist");
         }
