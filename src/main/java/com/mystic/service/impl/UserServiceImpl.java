@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService {
 
         validationRegistration.validation(firstname, password, username);
 
+
+
         user.setFirstname(firstname);
 
         user.setPassword(DigestUtils.sha256Hex(password));

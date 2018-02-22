@@ -19,13 +19,14 @@ public class ValidationRegistration {
     private ValidationService validationService;
 
     public void validation(String firstname, String password, String username) throws RegistrationException {
+
         if (validationService.isNameValid(firstname)) {
             throw new RegistrationException(firstname + "Firstname is not valid");
         }
-        if (validationService.isPasswordValid(password)) {
+        if (!validationService.isPasswordValid(password)) {
             throw new RegistrationException("Password is not valid");
         }
-        if (validationService.isNameValid(username)) {
+        if (!validationService.isNameValid(username)) {
             throw new RegistrationException("Username is not valid");
         }
 

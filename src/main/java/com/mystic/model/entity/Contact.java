@@ -30,7 +30,6 @@ public class Contact implements Serializable {
     private long userId;
 
     @Column(name = "firstname")
-    @NotNull
     private String firstname;
 
     @Column(name = "lastname")
