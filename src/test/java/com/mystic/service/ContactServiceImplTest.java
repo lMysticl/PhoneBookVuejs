@@ -1,75 +1,80 @@
 package com.mystic.service;
 
 import com.mystic.model.entity.Contact;
+import com.mystic.model.entity.User;
 import com.mystic.model.repository.ContactRepository;
-import com.mystic.service.impl.ContactServiceImpl;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * This test only demo
- *
  * @author Pavel Putrenkov
+ * @version 1.0
+ * @since
  */
-
-@RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ContactServiceImplTest {
 
-    private static final Long USER_ID = 0L;
 
-    @InjectMocks
-    private ContactServiceImpl contactServiceImpl;
-    @Mock
+    private static final String ADDRESS = "123 6th St. \n" +
+            "Melbourne, FL 32904";
+
+    private static final String GERMANY = "Germany";
+
+    private static final String EMAIL = "Scombed1958@armyspy.com";
+
+    private static final String LASTNAME = "Carder";
+
+    private static final String FIRSTNAME = "John";
+
+    private static final String MOBILE_PHONE = "+1-202-555-0153";
+
+    @Autowired
+    private UserService getUserService;
+
+    @Autowired
     private ContactRepository contactRepository;
 
+    private Contact contact;
 
-    private Contact result;
-    private Contact actual;
-
-    private List<Contact> contacts = new ArrayList<>();
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
 
-        result = mock(Contact.class);
-        actual = mock(Contact.class);
-        when(contactRepository.findByUserId(USER_ID)).thenReturn((ArrayList<Contact>) contacts);
+        User user = getUserService.findById(11L);
+
+        contact = new Contact();
+        contact.setUserId(11L);
+        contact.setUser(user);
+        contact.setAddress(ADDRESS);
+        contact.setCountry(GERMANY);
+        contact.setEmail(EMAIL);
+        contact.setLastname(LASTNAME);
+        contact.setFirstname(FIRSTNAME);
+        contact.setMobilePhone(MOBILE_PHONE);
+
     }
 
+    @Transactional
+    @Rollback
     @Test
-    public void getByUserId() {
-        assertEquals(contactServiceImpl.getByUserId(USER_ID), contacts);
+    public void addContactTest() {
+
+        Contact contact = contactRepository.saveAndFlush(this.contact);
+
+        Assert.assertTrue(contact.getMobilePhone().equals(MOBILE_PHONE));
+        Assert.assertTrue(contact.getUserId() != 0);
+
+        Contact actual = this.contact;
+        Contact current = contactRepository.findOne(this.contact.getContactId());
+        Assert.assertEquals(actual, current);
+
     }
-
-    @Test
-    public void saveContact() {
-
-        actual.setUserId(USER_ID);
-        result.setUserId(USER_ID);
-
-        when(contactServiceImpl.saveContact(actual)).thenReturn(result);
-    }
-
-    @Test
-    public void deleteByUserId() {
-        doThrow(new RuntimeException()).when(contactRepository).delete(contactRepository.getOne(USER_ID));
-    }
-
 }

@@ -24,7 +24,7 @@ public class DatasourceConfig {
 
     @Qualifier("dataSource")
     @Autowired
-    private  DataSource dataSource;
+    private DataSource dataSource;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {

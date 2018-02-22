@@ -2,6 +2,7 @@ package com.mystic.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,43 +20,39 @@ import java.util.List;
 @ToString
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    @NonNull
+    private long userId;
+    @Column(name = "username")
+    @NotEmpty
+    private String username;
+    @Column(name = "password")
+    @JsonIgnore
+    @NonNull
+    @NotEmpty
+    private String password;
+    @Column(name = "firstname")
+    private String firstname;
+    @Column(name = "lastname")
+    private String lastname;
+    @OneToMany(mappedBy = "user")
+    private List<Contact> contacts = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id_1", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
+
     public User() {
     }
+
 
     public User(String username, String password, List<Role> roles) {
         this.username = username;
         this.password = password;
         this.roles = roles;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    @NonNull
-    private long userId;
-
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "password")
-    @JsonIgnore
-    @NonNull
-    private String password;
-
-    @Column(name = "firstname")
-    private String firstname;
-
-    @Column(name = "lastname")
-    private String lastname;
-
-    @OneToMany(mappedBy = "user")
-    private List<Contact> contacts = new ArrayList<>();
-
-
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id_1", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles = new ArrayList<>();
 
     public void addRole(Role role) {
         roles.add(role);
@@ -64,6 +61,7 @@ public class User implements Serializable {
 
     public void removeRole(Role role) {
         roles.remove(role);
-        role.getUsers().remove(this);    }
+        role.getUsers().remove(this);
+    }
 
 }

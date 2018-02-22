@@ -5,11 +5,11 @@ package com.mystic.exceptions;
  * @version 1.0
  * @since
  */
-public class RegistrationException  extends BaseException{
+public class RegistrationException extends BaseException {
 
     private static final String USER_EXIST_EXCEPTION_MESSAGE = "User with this name exist";
 
-    public RegistrationException( String description) {
+    public RegistrationException(String description) {
         super(USER_EXIST_EXCEPTION_MESSAGE, description);
     }
 }

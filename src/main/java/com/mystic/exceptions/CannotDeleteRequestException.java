@@ -5,7 +5,7 @@ package com.mystic.exceptions;
  * @version 1.0
  * @since
  */
-public class CannotDeleteRequestException extends BaseException{
+public class CannotDeleteRequestException extends BaseException {
 
     private static final String MESSAGE = "Cannot delete user";
 

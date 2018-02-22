@@ -59,7 +59,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient(clientId)
                 .secret(clientSecret)
                 .authorizedGrantTypes(grantType)
-                .scopes(scopeRead, scopeWrite,scopeTrust)
+                .scopes(scopeRead, scopeWrite, scopeTrust)
                 .resourceIds(resourceIds)
                 .accessTokenValiditySeconds(30000);
     }
@@ -74,8 +74,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
     }
-
-
 
 
 }

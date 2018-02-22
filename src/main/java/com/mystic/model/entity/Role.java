@@ -22,6 +22,8 @@ public class Role {
 
     @Column(name = "description")
     private String description;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users = new ArrayList<>();
 
     public Role() {
     }
@@ -29,8 +31,5 @@ public class Role {
     public Role(String name) {
         this.name = name;
     }
-
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users = new ArrayList<>();
 
 }

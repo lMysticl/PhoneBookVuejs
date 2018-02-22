@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  * @author Pavel Putrenkov
  * @version 1.0
@@ -22,9 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegistrationServiceImplTest {
 
     private static final String PETIA = "Petia";
-    
+
     private static final String PASSWORD = "12345";
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -58,10 +59,9 @@ public class RegistrationServiceImplTest {
 
         User actual = this.user;
         User current = userRepository.findOne(this.user.getUserId());
-        Assert.assertEquals(actual,current );
+        Assert.assertEquals(actual, current);
 
     }
-
 
 
 }

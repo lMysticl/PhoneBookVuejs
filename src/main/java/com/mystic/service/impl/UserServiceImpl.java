@@ -5,6 +5,7 @@ import com.mystic.model.entity.User;
 import com.mystic.model.repository.RoleRepository;
 import com.mystic.model.repository.UserRepository;
 import com.mystic.service.UserService;
+import com.mystic.validation.ValidationRegistration;
 import lombok.AllArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
+    private final ValidationRegistration validationRegistration;
+
+
     public User findByUsername(String username) throws UsernameNotFoundException {
         if (userRepository.findByUsername(username) != null) {
             throw new UsernameNotFoundException("Username not found");
@@ -36,18 +40,18 @@ public class UserServiceImpl implements UserService {
 
     public User getUserService(@RequestBody String data) throws RegistrationException {
 
-        JSONObject obj = new JSONObject(data);
+        JSONObject copy = new JSONObject(data, JSONObject.getNames(data));
+
         User user = new User();
 
-        String firstname = obj.has("firstname") ? obj.getString("firstname") : "";
+        String firstname = copy.has("firstname") ? copy.getString("firstname") : "";
 
-        String password = obj.has("password") ? obj.getString("password") : "";
+        String password = copy.has("password") ? copy.getString("password") : "";
 
-        String username = obj.has("username") ? obj.getString("username") : "";
+        String username = copy.has("username") ? copy.getString("username") : "";
 
-        if (userRepository.findByUsername(username) != null) {
-            throw new RegistrationException(username + " User exist");
-        }
+
+        validationRegistration.validation(firstname, password, username);
 
         user.setFirstname(firstname);
 
