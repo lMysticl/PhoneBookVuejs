@@ -54,6 +54,7 @@ public class AddRandomContactsTest {
         String fileName = "F:\\Java\\PhoneBook_ver3.0\\PhoneBook\\src\\main\\resources\\static\\MOCK_DATA.json";
 
         List<String> list = new ArrayList<>();
+        List<Contact> contactList = new ArrayList<>();
 
         try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
 
@@ -72,7 +73,7 @@ public class AddRandomContactsTest {
             String last_name = jsonObject.has("last_name") ? jsonObject.getString("last_name") : "";
             String email = jsonObject.has("email") ? jsonObject.getString("email") : "";
             String phone_number = jsonObject.has("phone_number") ? jsonObject.getString("phone_number") : "";
-            String address = jsonObject.has("phone_number") ? jsonObject.getString("phone_number") : "";
+            String address = jsonObject.has("address") ? jsonObject.getString("address") : "";
 
             Contact contact = new Contact();
             contact.setUserId(11L);
@@ -82,9 +83,9 @@ public class AddRandomContactsTest {
             contact.setLastname(last_name);
             contact.setEmail(email);
             contact.setAddress(address);
-            contactRepository.save(contact);
+            contactList.add(contact);
         }
-
+        contactRepository.save(contactList);
 
     }
 }
