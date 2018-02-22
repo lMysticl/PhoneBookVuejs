@@ -24,10 +24,10 @@ public class Contact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contact_id")
-    private long contactId;
+    private Long contactId;
 
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
 
     @Column(name = "firstname")
     private String firstname;

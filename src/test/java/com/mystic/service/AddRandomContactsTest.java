@@ -63,23 +63,27 @@ public class AddRandomContactsTest {
         }
         JSONArray copy = new JSONArray(list);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             String s = copy.get(i).toString();
 
             JSONObject jsonObject = new JSONObject(s);
             String firstname = jsonObject.has("first_name") ? jsonObject.getString("first_name") : "";
+            Long id = jsonObject.has("id") ? jsonObject.getLong("id"): 0;
             String last_name = jsonObject.has("last_name") ? jsonObject.getString("last_name") : "";
             String email = jsonObject.has("email") ? jsonObject.getString("email") : "";
             String phone_number = jsonObject.has("phone_number") ? jsonObject.getString("phone_number") : "";
+            String country = jsonObject.has("country") ? jsonObject.getString("country") : "";
             String address = jsonObject.has("address") ? jsonObject.getString("address") : "";
 
             Contact contact = new Contact();
+            contact.setContactId(id);
             contact.setUserId(492L);
             contact.setUser(user);
             contact.setFirstname(firstname);
             contact.setMobilePhone(phone_number);
             contact.setLastname(last_name);
             contact.setEmail(email);
+            contact.setCountry(country);
             contact.setAddress(address);
             contactList.add(contact);
         }
