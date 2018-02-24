@@ -5,11 +5,11 @@ package com.mystic.exceptions;
  * @version 1.0
  * @since
  */
-public class ContactExeption extends BaseException {
+public class ContactException extends BaseException {
 
     private static final String CONTACT_EXCEPTION_MESSAGE = "Contact is not valid ";
 
-    public ContactExeption(String description) {
+    public ContactException(String description) {
         super(CONTACT_EXCEPTION_MESSAGE, description);
     }
 }

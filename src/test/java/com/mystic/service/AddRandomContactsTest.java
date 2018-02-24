@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
+@Ignore
 public class AddRandomContactsTest {
 
     @Autowired
@@ -46,7 +47,7 @@ public class AddRandomContactsTest {
 
 
     @Test
-    public void getClientFromExcel() throws IOException, ParseException {
+    public void addRandomContact() throws IOException, ParseException {
 
 
         String fileName = "F:\\Java\\PhoneBook_ver3.0\\PhoneBook\\src\\main\\resources\\static\\MOCK_DATA.json";
@@ -63,7 +64,7 @@ public class AddRandomContactsTest {
         }
         JSONArray copy = new JSONArray(list);
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 50; i < 100; i++) {
             String s = copy.get(i).toString();
 
             JSONObject jsonObject = new JSONObject(s);
@@ -88,6 +89,38 @@ public class AddRandomContactsTest {
             contactList.add(contact);
         }
         contactRepository.save(contactList);
+
+    }
+    @Test
+    @Ignore
+    public void getMasks() throws IOException, ParseException {
+
+
+      String fileName = "F:\\Java\\PhoneBook_ver3.0\\PhoneBook\\src\\main\\resources\\static\\phone-codes.json";
+
+        List<String> list = new ArrayList<>();
+        List<Contact> contactList = new ArrayList<>();
+
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
+
+            list = br.lines().collect(Collectors.toList());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray copy = new JSONArray(list);
+
+        for (int i = 0; i < list.size(); i++) {
+            String s = copy.get(i).toString();
+
+            JSONObject jsonObject = new JSONObject(s);
+            String mask = jsonObject.has("mask") ? jsonObject.getString("mask") : "";
+            String name_en = jsonObject.has("name_en") ? jsonObject.getString("name_en"): "";
+
+            System.out.println("\'"+name_en+"\'"+":"+"\'"+mask+"\'"+",");
+
+        }
+//        list.forEach(System.out::println);
 
     }
 }

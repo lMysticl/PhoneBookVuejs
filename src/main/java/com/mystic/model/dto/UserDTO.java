@@ -1,9 +1,7 @@
 package com.mystic.model.dto;
 
 import com.mystic.model.entity.Contact;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +14,11 @@ import java.util.List;
 @Data
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString
 public class UserDTO {
 
-    private long userId;
+    private Long userId;
 
     private String username;
 

@@ -1,6 +1,7 @@
 package com.mystic.controller;
 
-import com.mystic.exceptions.ContactExeption;
+import com.mystic.exceptions.ContactException;
+import com.mystic.model.dto.ContactsDescriptionDto;
 import com.mystic.model.dto.UserDTO;
 import com.mystic.model.entity.Contact;
 import com.mystic.model.entity.User;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,14 +39,36 @@ public class ContactController {
 
     private final ValidationService validation;
 
+    private ContactsDescriptionDto contactsDescriptionDto;
+
+//    @GetMapping(value = "/contacts/get-all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 400, message = "Something went wrong"),
+//            @ApiResponse(code = 403, message = "Access denied"),
+//            @ApiResponse(code = 404, message = "The user doesn't exist"),
+//            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+//    public List<Contact> returnAllContact() {
+//
+//        User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//
+//        ModelMapper modelMapper = new ModelMapper();
+//
+//        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+//
+//        return contactServiceImpl.getByUserId(userDTO.getUserId());
+//
+//    }
+
     @GetMapping(value = "/contacts/get-all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 402, message = "Have not right for access"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
-            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public List<Contact> returnAllContact() {
+            @ApiResponse(code = 401, message = "Expired or invalid JWT token")})
+            @ApiResponse(code = 500, message = "Something went wrong")
+    public ContactsDescriptionDto returnAllContact(Integer cursor, Integer offset, String sortBy, String dir) {
 
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
@@ -52,17 +76,28 @@ public class ContactController {
 
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
 
-        return contactServiceImpl.getByUserId(userDTO.getUserId());
+        Integer countContacts = contactServiceImpl.getCountOfContacts(userDTO.getUserId());
+
+        System.out.println(sortBy);
+        System.out.println(dir);
+
+        ArrayList<Contact> contactForPagination = contactServiceImpl.getContactForPagination(userDTO.getUserId(),sortBy,dir, cursor, offset);
+
+        contactsDescriptionDto.setContacts(contactForPagination);
+        contactsDescriptionDto.setCount(countContacts);
+
+        return contactsDescriptionDto;
 
     }
 
     @PostMapping(value = "contacts/add")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 402, message = "Have not right for access"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
-            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public Contact addContact(Contact contact) throws ContactExeption {
+            @ApiResponse(code = 401, message = "Expired or invalid JWT token")})
+            @ApiResponse(code = 500, message = "Something went wrong")
+    public Contact addContact(Contact contact) throws ContactException {
 
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
@@ -73,11 +108,12 @@ public class ContactController {
 
     @PostMapping(value = "contacts/delete")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 402, message = "Have not right for access"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
-            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void deleteContact(Contact contact) throws ContactExeption {
+            @ApiResponse(code = 401, message = "Expired or invalid JWT token")})
+    @ApiResponse(code = 500, message = "Something went wrong")
+    public void deleteContact(Contact contact) {
         if (contact != null) {
             validation.isContactId(String.valueOf(contact.getContactId()));
             contactServiceImpl.deleteByUserId(contact.getContactId());
@@ -86,10 +122,11 @@ public class ContactController {
 
     @PostMapping(value = "contacts/deleteList")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 402, message = "Have not right for access"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
-            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+            @ApiResponse(code = 401, message = "Expired or invalid JWT token")})
+    @ApiResponse(code = 500, message = "Something went wrong")
     public void deleteContactList(String contactId) {
         if (contactId != null) {
             validation.isContactId(String.valueOf(contactId));
@@ -101,11 +138,12 @@ public class ContactController {
 
     @PostMapping(value = "contacts/update")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 402, message = "Have not right for access"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
-            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void updateContact(Contact contact) throws ContactExeption {
+            @ApiResponse(code = 401, message = "Expired or invalid JWT token")})
+            @ApiResponse(code = 500, message = "Something went wrong")
+    public void updateContact(Contact contact) throws ContactException {
         if (contact != null) {
             validateContact.validateContact(contact);
             User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());

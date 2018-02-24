@@ -11,6 +11,8 @@ import lombok.*;
 @Data
 @Setter
 @Getter
+@EqualsAndHashCode
+@ToString
 public class ContactDTO {
 
     private long contactId;

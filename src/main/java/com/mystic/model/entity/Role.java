@@ -1,7 +1,9 @@
 package com.mystic.model.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.List;
 @Table(name = "app_role")
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString
 public class Role {
 
     @Id
