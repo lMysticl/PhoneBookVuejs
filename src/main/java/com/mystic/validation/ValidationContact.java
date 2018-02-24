@@ -41,9 +41,9 @@ public class ValidationContact {
 //            errors+="Address is not valid;";
 //        }
 
-        if (!validation.isEmailValid(contact.getEmail())) {
-            errors+="Email is not valid;";
-        }
+//        if (!validation.isEmailValid(contact.getEmail())) {
+//            errors+="Email is not valid;";
+//        }
 
         if (errors.length()>=1){
             throw new ContactException(errors);
