@@ -1,6 +1,6 @@
 package com.mystic.controller;
 
-import com.mystic.exceptions.ContactExeption;
+import com.mystic.exceptions.ContactException;
 import com.mystic.model.dto.UserDTO;
 import com.mystic.model.entity.Contact;
 import com.mystic.model.entity.User;
@@ -62,7 +62,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public Contact addContact(Contact contact) throws ContactExeption {
+    public Contact addContact(Contact contact) throws ContactException {
 
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         contact.setUserId(user.getUserId());
@@ -77,7 +77,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void deleteContact(Contact contact) throws ContactExeption {
+    public void deleteContact(Contact contact) throws ContactException {
         if (contact != null) {
             validation.isContactId(String.valueOf(contact.getContactId()));
             contactServiceImpl.deleteByUserId(contact.getContactId());
@@ -105,7 +105,7 @@ public class ContactController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void updateContact(Contact contact) throws ContactExeption {
+    public void updateContact(Contact contact) throws ContactException {
         if (contact != null) {
             validateContact.validateContact(contact);
             User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());

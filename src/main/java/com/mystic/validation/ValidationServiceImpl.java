@@ -60,6 +60,11 @@ public class ValidationServiceImpl implements ValidationService {
         return EMAIL_PATTERN.matcher(email).matches();
     }
 
+//    @Override
+//    public boolean isAddressValid(String address) {
+//        return ADDRESS_PATTERN.matcher(address).matches();
+//    }
+
     @Override
     public boolean isPasswordValid(String password) {
         return PASSWORD_PATTERN.matcher(password).matches();
