@@ -10,6 +10,6 @@ public class RegistrationException extends BaseException {
     private static final String USER_EXIST_EXCEPTION_MESSAGE = "User with this name exist";
 
     public RegistrationException(String description) {
-        super(USER_EXIST_EXCEPTION_MESSAGE, description);
+        super(description,USER_EXIST_EXCEPTION_MESSAGE);
     }
 }

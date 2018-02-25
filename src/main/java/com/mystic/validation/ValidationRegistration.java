@@ -28,13 +28,9 @@ public class ValidationRegistration {
             System.out.println(validationService.isNameValid(username));
             throw new RegistrationException("Username is not valid");
         }
-
-        userExist(username);
-    }
-
-    public void userExist(String username) throws RegistrationException {
         if (userRepository.findByUsername(username) != null) {
             throw new RegistrationException(username + " User exist");
         }
     }
+
 }

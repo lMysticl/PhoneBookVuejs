@@ -50,10 +50,8 @@ public class UserServiceImpl implements UserService {
 
         String username = copy.has("username") ? copy.getString("username") : "";
 
-        System.out.println("copy "+copy.toString());
+
         validationRegistration.validation(firstname, username);
-
-
 
         user.setFirstname(firstname);
 

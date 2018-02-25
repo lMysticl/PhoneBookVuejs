@@ -79,7 +79,6 @@ public class ContactController {
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void deleteContact(Contact contact)  {
         if (contact != null) {
-            validation.isContactId(String.valueOf(contact.getContactId()));
             contactServiceImpl.deleteByUserId(contact.getContactId());
         }
     }
@@ -92,7 +91,6 @@ public class ContactController {
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void deleteContactList(String contactId) {
         if (contactId != null) {
-            validation.isContactId(String.valueOf(contactId));
             List<String> items = Arrays.asList(contactId.split(","));
             contactServiceImpl.deleteSomeUser(items);
         }
