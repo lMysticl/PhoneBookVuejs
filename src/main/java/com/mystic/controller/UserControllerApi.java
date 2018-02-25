@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -33,7 +32,7 @@ public class UserControllerApi {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void register(@Valid @RequestBody String data) throws RegistrationException {
+    public void register(@RequestBody String data) throws RegistrationException {
         User user = getUserService.getUserService(data);
         userServiceImpl.save(user);
     }

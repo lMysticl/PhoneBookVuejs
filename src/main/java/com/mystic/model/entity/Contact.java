@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author Putrenkov Pavlo
  */
 @Entity
-@Table(name = "contacts")
+@Table(name = "contacts", catalog = "")
 @Getter
 @Setter
 @EqualsAndHashCode

@@ -32,6 +32,6 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
                        String address,
                        String email);
     @Modifying
-    @Query(value = "delete from heroku_97c29fa23a87141.contacts where contact_id IN ?1", nativeQuery = true)
+    @Query(value = "delete from contacts where contact_id IN ?1", nativeQuery = true)
     void deleteContactWithIds(List<String> ids);
 }
