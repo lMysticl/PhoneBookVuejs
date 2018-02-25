@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Putrenkov Pavlo
  */
 @SpringBootApplication
-
 public class PhoneBookApplication {
 
     public static void main(String[] args) {
