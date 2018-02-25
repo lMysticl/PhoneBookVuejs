@@ -23,7 +23,6 @@ public class ValidationContact {
             errors+="First name is not valid;";
         }
 
-
 //        if (!validation.isNameValid(contact.getLastname()) || contact.getLastname().equals("")) {
 //            errors+="Last name is not valid;";
 //        }
