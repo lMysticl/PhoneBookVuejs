@@ -54,7 +54,7 @@ public class UserControllerApi {
     public void usersEdit(@RequestBody String data) throws RegistrationException {
 
         User user = getUserService.setUser(data);
-
+        
         userServiceImpl.save(user);
     }
 
