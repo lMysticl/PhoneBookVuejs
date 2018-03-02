@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -36,7 +35,6 @@ public class Contact implements Serializable {
     private String lastname;
 
     @Column(name = "mobile_phone")
-    @NotNull
     private String mobilePhone;
 
     @Column(name = "address")

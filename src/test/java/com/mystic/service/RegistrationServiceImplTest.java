@@ -9,9 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * @author Pavel Putrenkov
@@ -43,22 +44,22 @@ public class RegistrationServiceImplTest {
         user = new User();
         user.setUsername(PETIA);
         user.setPassword(PASSWORD);
-        user.addRole(roleRepository.findOne(1L));
+        user.addRole(roleRepository.findById(1L).get());
 
 
     }
 
 
     @Transactional
-    @Rollback
+
     @Test
     public void registrationTest() {
         userRepository.save(user);
         Assert.assertTrue(userRepository.findByUsername(user.getUsername()).getUsername().equals(PETIA));
         Assert.assertTrue(user.getUserId() != 0);
 
-        User actual = this.user;
-        User current = userRepository.findOne(this.user.getUserId());
+        Optional<User> actual = Optional.ofNullable(this.user);
+        Optional<User> current = userRepository.findById(this.user.getUserId());
         Assert.assertEquals(actual, current);
 
     }

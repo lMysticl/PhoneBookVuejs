@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Putrenkov Pavlo
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
         user.setUsername(username);
 
-        user.addRole(roleRepository.findOne(1L));
+        user.addRole(roleRepository.findById(1L).get());
 
         return user;
 
@@ -126,8 +127,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Long id) throws AccessDeniedException {
-        return userRepository.findOne(id);
+    public Optional<User> findById(Long id) throws AccessDeniedException {
+        return userRepository.findById(id);
     }
 
     public List<User> findAll() throws AccessDeniedException {

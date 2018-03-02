@@ -4,12 +4,13 @@ import com.mystic.exceptions.RegistrationException;
 import com.mystic.model.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Putrenkov Pavlo
  */
 public interface UserService {
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     User findByUsername(String username);
 

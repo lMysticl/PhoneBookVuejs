@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -36,7 +37,7 @@ public class AddRandomContactsTest {
     @Autowired
     private ContactRepository contactRepository;
 
-    private User user;
+    private Optional<User> user;
 
     @Before
     public void setUp() {
@@ -77,16 +78,17 @@ public class AddRandomContactsTest {
             Contact contact = new Contact();
             contact.setContactId(id);
             contact.setUserId(492L);
-            contact.setUser(user);
+            contact.setUser(user.get());
             contact.setFirstname(firstname);
             contact.setMobilePhone(phone_number);
             contact.setLastname(last_name);
             contact.setEmail(email);
+
             contact.setCountry(country);
             contact.setAddress(address);
             contactList.add(contact);
         }
-        contactRepository.save(contactList);
+       contactRepository.saveAll(contactList);
 
     }
 }

@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 
 @Component
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@Order(SecurityProperties.BASIC_AUTH_ORDER)
 public class SimpleCORSFilter implements Filter {
 
     @Override

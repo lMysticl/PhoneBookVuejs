@@ -9,9 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * @author Pavel Putrenkov
@@ -48,11 +49,11 @@ public class ContactServiceImplTest {
     @Before
     public void setUp() {
 
-        User user = getUserService.findById(11L);
+        Optional<User> user = getUserService.findById(11L);
 
         contact = new Contact();
         contact.setUserId(11L);
-        contact.setUser(user);
+        contact.setUser(user.get());
         contact.setAddress(ADDRESS);
         contact.setCountry(GERMANY);
         contact.setEmail(EMAIL);
@@ -63,7 +64,6 @@ public class ContactServiceImplTest {
     }
 
     @Transactional
-    @Rollback
     @Test
     public void addContactTest() {
 
@@ -72,8 +72,8 @@ public class ContactServiceImplTest {
         Assert.assertTrue(contact.getMobilePhone().equals(MOBILE_PHONE));
         Assert.assertTrue(contact.getUserId() != 0);
 
-        Contact actual = this.contact;
-        Contact current = contactRepository.findOne(this.contact.getContactId());
+        Optional<Contact> actual = Optional.ofNullable(this.contact);
+        Optional<Contact> current = contactRepository.findById(this.contact.getContactId());
         Assert.assertEquals(actual, current);
 
     }
