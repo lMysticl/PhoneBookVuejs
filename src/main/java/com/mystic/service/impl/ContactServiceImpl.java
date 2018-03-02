@@ -18,13 +18,12 @@ public class ContactServiceImpl {
 
     private ContactRepository contactRepository;
 
-
     @Transactional
     public void deleteSomeUser(List<String> ids) {
         contactRepository.deleteContactWithIds(ids);
     }
 
-        public ArrayList<Contact> getByUserId(Long userId) {
+    public ArrayList<Contact> getByUserId(Long userId) {
         return contactRepository.findByUserId(userId);
     }
 

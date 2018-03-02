@@ -5,11 +5,14 @@ import com.mystic.model.entity.User;
 import com.mystic.model.repository.RoleRepository;
 import com.mystic.model.repository.UserRepository;
 import com.mystic.service.UserService;
+import com.mystic.validation.ValidationPassword;
 import com.mystic.validation.ValidationRegistration;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,7 @@ import java.util.List;
  */
 @Service("userService")
 @AllArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -28,6 +32,9 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     private final ValidationRegistration validationRegistration;
+
+    private final ValidationPassword validationPassword;
+
 
 
     public User findByUsername(String username) throws UsernameNotFoundException {
@@ -38,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public User getUserService(@RequestBody String data) throws RegistrationException {
+    public User setUser(@RequestBody String data) throws RegistrationException {
 
         JSONObject copy = new JSONObject(data);
 
@@ -46,20 +53,30 @@ public class UserServiceImpl implements UserService {
 
         String firstname = copy.has("firstname") ? copy.getString("firstname") : "";
 
+        String lastname = copy.has("lastname") ? copy.getString("lastname") : "";
+
         String password = copy.has("password") ? copy.getString("password") : "";
 
         String username = copy.has("username") ? copy.getString("username") : "";
 
-        System.out.println("copy "+copy.toString());
+        String avatar = copy.has("avatar") ? copy.getString("avatar") : "";
+
+        Long userId = copy.has("userId") ? copy.getLong("userId") : 0;
+
+        if (!(userId == 0)) {
+             user.setUserId(userId);
+        }
+
         validationRegistration.validation(firstname, username);
-
-
 
         user.setFirstname(firstname);
 
-        user.setPassword(DigestUtils.sha256Hex(password));
 
-        user.setLastname("");
+        user.setLastname(lastname);
+
+        user.setAvatar(avatar);
+
+        cheackPassword(copy, user, password);
 
         user.setUsername(username);
 
@@ -69,11 +86,39 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    private void cheackPassword(JSONObject copy, User user, String password) {
+        if(copy.has("password")) {
+
+            user.setPassword(DigestUtils.sha256Hex(password));
+
+        }else {
+
+            User  userPas = getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+            user.setPassword(userPas.getPassword());
+
+        }
+    }
+
+    public void checkPassword(User user, String data) throws RegistrationException {
+
+        JSONObject copy = new JSONObject(data);
+
+        String oldPassword = copy.has("oldPassword") ? copy.getString("oldPassword") : "";
+
+        String newPassword = copy.has("newPassword") ? copy.getString("newPassword") : "default";
+
+        validationPassword.validation(user, oldPassword);
+
+        user.setPassword(DigestUtils.sha256Hex(newPassword));
+    }
+
     public void save(User user) {
         userRepository.save(user);
     }
 
     public User getUser(String username) {
+        log.info(userRepository.findByUsername(username).toString());
         return userRepository.findByUsername(username);
     }
 

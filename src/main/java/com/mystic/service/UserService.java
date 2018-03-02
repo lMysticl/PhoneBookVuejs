@@ -15,5 +15,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    User getUserService(String data) throws RegistrationException;
+    User setUser(String data) throws RegistrationException;
+
+    void checkPassword(User user, String oldPassword) throws RegistrationException;
 }

@@ -94,9 +94,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/oauth/*", "user/register").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/oauth/*").permitAll()
                 .antMatchers("/resources/**", "/register").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers(HttpMethod.OPTIONS,"/api/**").authenticated()
                 .anyRequest().permitAll()
                 .and().httpBasic()
                 .realmName(securityRealm)
