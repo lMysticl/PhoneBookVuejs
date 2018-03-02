@@ -5,12 +5,6 @@ Set MySQL server configuration:
 --------------------
 Change properties in application.properties (src\main\resources\application.yml)
 
-spring.datasource.url - url to server
-
-spring.datasource.username= server username
-
-spring.datasource.password= server password
-
 
 ===================================
 

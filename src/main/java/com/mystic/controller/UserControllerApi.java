@@ -66,7 +66,6 @@ public class UserControllerApi {
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void changePassword(@RequestBody String data) throws RegistrationException {
-
         User user = userServiceImpl.getUser((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         userServiceImpl.checkPassword(user, data);
         userServiceImpl.save(user);
