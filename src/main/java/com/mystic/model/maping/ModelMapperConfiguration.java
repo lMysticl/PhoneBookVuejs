@@ -16,7 +16,8 @@ public class ModelMapperConfiguration {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.addConverter(new FromTableToTableDtoConverter());
+        modelMapper.addConverter(new FromTableToTableDtoConverterContact());
+        modelMapper.addConverter(new FromTableToTableDtoConverterUser());
         return modelMapper;
     }
 }

@@ -14,11 +14,11 @@ import java.io.Serializable;
  * @author Putrenkov Pavlo
  */
 @Entity
-@Table(name = "contacts", catalog = "")
+@Table(name = "contacts")
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(exclude={"user"})
+@ToString(exclude = {"user"})
 public class Contact implements Serializable {
 
     @Id
@@ -48,7 +48,7 @@ public class Contact implements Serializable {
     @Column(name = "country")
     private String country;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @JsonIgnore
     private User user;

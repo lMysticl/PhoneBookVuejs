@@ -11,7 +11,7 @@ import java.util.Objects;
  * @version 1.0
  * @since
  */
-public class FromTableToTableDtoConverter extends AbstractConverter<Contact, ContactDTO> {
+public class FromTableToTableDtoConverterContact extends AbstractConverter<Contact, ContactDTO> {
     @Override
     protected ContactDTO convert(Contact contact) {
         if (Objects.nonNull(contact)) {

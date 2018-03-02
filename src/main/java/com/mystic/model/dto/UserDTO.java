@@ -28,7 +28,7 @@ public class UserDTO {
 
     private String lastname;
 
-    private String middlename;
+    private String avatar;
 
     private List<Contact> contacts = new ArrayList<>();
 

@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
 public class AddRandomContactsTest {
 
     @Autowired
@@ -63,7 +62,7 @@ public class AddRandomContactsTest {
         }
         JSONArray copy = new JSONArray(list);
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 100; i < 300; i++) {
             String s = copy.get(i).toString();
 
             JSONObject jsonObject = new JSONObject(s);

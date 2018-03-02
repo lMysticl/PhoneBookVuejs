@@ -15,18 +15,18 @@ import java.util.List;
 @Table(name = "app_user")
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(exclude={"avatar"})
+@ToString(exclude = {"avatar"})
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-
     private Long userId;
 
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     @JsonIgnore
     @NonNull
@@ -38,12 +38,13 @@ public class User implements Serializable {
     @Column(name = "lastname")
     private String lastname;
 
-    @OneToMany(mappedBy = "user")
-    private List<Contact> contacts = new ArrayList<>();
+    @Column(name = "avatars")
+    private String avatar;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id_1", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
     public User() {
