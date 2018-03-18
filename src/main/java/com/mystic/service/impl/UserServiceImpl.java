@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
     private final ValidationPassword validationPassword;
 
 
-
     public User findByUsername(String username) throws UsernameNotFoundException {
         if (userRepository.findByUsername(username) != null) {
             throw new UsernameNotFoundException("Username not found");
@@ -70,7 +69,6 @@ public class UserServiceImpl implements UserService {
         validationRegistration.validation(firstname, username);
 
         user.setFirstname(firstname);
-
 
         user.setLastname(lastname);
 

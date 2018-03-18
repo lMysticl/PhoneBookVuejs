@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: phone-service
+  cloud:
+    stream:
+      bindings:
+        account_registered_chanel:
+          destination: account-registered.exchange
+          contentType: application/json
+server:
+  port: 8075
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+  instance:
+    hostname: localhost
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
