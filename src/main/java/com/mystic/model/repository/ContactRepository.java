@@ -17,6 +17,10 @@ import java.util.List;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
+//    @Modifying
+//    @Query(value = "SELECT user_id,lastname,firstname,username,avatar from user where  user.user_id LIKE ?1", nativeQuery = true)
+//    ArrayList<Contact> findByUserId(Long userId);
+
     ArrayList<Contact> findByUserId(Long userId);
 
     Contact saveAndFlush(Contact contact);

@@ -4,6 +4,7 @@ import com.mystic.model.entity.Contact;
 import com.mystic.model.repository.ContactRepository;
 import com.mystic.service.impl.ContactServiceImpl;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -29,6 +30,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
+@Ignore
 public class ContactServiceImplTestMock {
 
     private static final Long USER_ID = 0L;

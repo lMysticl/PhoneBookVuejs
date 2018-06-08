@@ -1,6 +1,6 @@
 package com.mystic.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mystic.user.domain.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,9 +48,13 @@ public class Contact implements Serializable {
     @Column(name = "country")
     private String country;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    @JsonIgnore
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "userId", insertable = false, updatable = false)
+//    @JsonIgnore
+//    @Embedded
+//    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -18,6 +18,9 @@ public class ContactServiceImpl {
 
     private ContactRepository contactRepository;
 
+
+
+
     @Transactional
     public void deleteSomeUser(List<String> ids) {
         contactRepository.deleteContactWithIds(ids);
@@ -45,5 +48,6 @@ public class ContactServiceImpl {
                 contact.getAddress(),
                 contact.getEmail());
     }
+
 
 }

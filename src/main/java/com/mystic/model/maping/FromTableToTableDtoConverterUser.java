@@ -1,7 +1,7 @@
 package com.mystic.model.maping;
 
 import com.mystic.model.dto.UserDTO;
-import com.mystic.model.entity.User;
+import com.mystic.user.domain.User;
 import org.modelmapper.AbstractConverter;
 
 import java.util.Objects;
@@ -21,7 +21,7 @@ public class FromTableToTableDtoConverterUser extends AbstractConverter<User, Us
             userDTO.setLastname(user.getLastname());
             userDTO.setUserId(user.getUserId());
             userDTO.setAvatar(user.getAvatar());
-            userDTO.setPassword(user.getPassword());
+//            userDTO.setPassword(user.getPassword());
             userDTO.setUsername(user.getUsername());
             return userDTO;
         }

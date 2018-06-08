@@ -1,7 +1,7 @@
 package com.mystic.user.service;
 
 
-import com.targetbrain.user.domain.User;
+import com.mystic.user.domain.User;
 
 public interface UserService {
     User getCurrentUser();

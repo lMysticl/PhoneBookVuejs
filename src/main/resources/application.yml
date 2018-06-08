@@ -1,23 +1,65 @@
+
+server:
+  port: 8181
 spring:
+  profiles:
+    active: cloud
   application:
     name: phone-service
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/phonebook?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    password: root
+    username: root
+    sql-script-encoding: UTF-8
+    tomcat:
+      connection-properties: useUnicode=true;characterEncoding=utf-8;reconnect=true
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  jpa:
+    show-sql: false
+    generate-ddl: true
+    properties:
+      hibernate.hibernate.format_sql: false
+      hibernate.hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  thymeleaf:
+    check-template: false
+    check-template-location: false
+    enabled: false
   cloud:
     stream:
       bindings:
-        account_registered_chanel:
+        user_registered_chanel:
           destination: account-registered.exchange
           contentType: application/json
-server:
-  port: 8075
+          durableSubscription: true
+          group: dispatch_user_registered-group
+
 
 eureka:
   client:
+    eureka-server-connect-timeout-seconds: 10
+    eureka-server-read-timeout-seconds: 12
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8888/eureka/
   instance:
     hostname: localhost
+
 
 hystrix:
   command:
@@ -26,4 +68,33 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+
+security:
+  server:
+    url: ${SECURITY_SERVER_URL:http://localhost:9191}
+  oauth2:
+    resource:
+      user-info-uri: ${security.server.url}/uaa/principal
+
+#security:
+#  basic:
+#    enabled: false
+
+---
+spring:
+  profiles: dev
+
+security:
+   basic:
+     enabled: false
+
+---
+spring:
+  profiles: cloud
+security:
+  server:
+    url: ${SECURITY_SERVER_URL:http://localhost:9191}
+  oauth2:
+    resource:
+      user-info-uri: ${security.server.url}/uaa/principal
 

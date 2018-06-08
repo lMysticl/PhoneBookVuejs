@@ -1,0 +1,4 @@
+#spring.cloud.stream.bindings.user_registered_chanel.destination= accountRegistered
+#spring.cloud.stream.bindings.user_registered_chanel.group = dispatchUserRegisteredGroup
+##spring.cloud.stream.bindings.user_registered_chanel.durableSubscription=true
+#spring.cloud.stream.bindings.user_registered_chanel.contentType = application/json

@@ -1,7 +1,9 @@
 package com.mystic.model.dto;
 
-import com.mystic.model.entity.User;
-import lombok.*;
+import com.mystic.user.domain.User;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Pavel Putrenkov

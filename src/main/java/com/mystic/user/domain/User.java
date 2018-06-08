@@ -1,38 +1,40 @@
 package com.mystic.user.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
+import com.mystic.model.entity.Contact;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
+@Table
 @Getter
 @Setter
 @EqualsAndHashCode(of = "userId")
+@NoArgsConstructor
 public class User {
 
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "username")
+    @NonNull
     private String username;
 
-    @Column(name = "password")
-    @JsonIgnore
-    @NonNull
-    private String password;
-
-    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "avatars")
     private String avatar;
 
+    private User(String username){
+        this.username = username;
+    }
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Contact> contacts = Lists.newArrayList();
 }

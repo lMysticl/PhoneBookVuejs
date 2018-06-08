@@ -1,9 +1,9 @@
 package com.mystic.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.targetbrain.DispatchServiceApp;
-import com.targetbrain.user.domain.User;
-import com.targetbrain.user.repository.UserRepository;
+import com.mystic.PhoneBookApplication;
+import com.mystic.user.domain.User;
+import com.mystic.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,11 +17,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser() {
+        System.out.println(getUserId());
+        System.out.println(repository.findOne(getUserId()));
         Long id = getUserId();
         return repository.findOne(id);
     }
 
     private Long getUserId() {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!");
         try {
             ObjectMapper mapper = new ObjectMapper();
 
@@ -35,7 +38,7 @@ public class UserServiceImpl implements UserService {
                     .getLong("id");
         } catch (Exception e) {
             //possible only in dev profile when security is disabled
-            return DispatchServiceApp.DevConfig.DEV_USER_ID;
+            return PhoneBookApplication.DevConfig.DEV_USER_ID;
         }
 
     }

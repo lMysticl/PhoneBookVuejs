@@ -1,9 +1,9 @@
 package com.mystic.controller;
 
 import com.mystic.exceptions.RegistrationException;
-import com.mystic.model.entity.User;
-import com.mystic.service.UserService;
-import com.mystic.service.impl.UserServiceImpl;
+import com.mystic.user.repository.UserRepository;
+import com.mystic.user.service.UserService;
+import com.mystic.user.service.UserServiceImpl;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
@@ -20,6 +20,9 @@ public class UserControllerRegiter {
 
     private final UserServiceImpl userServiceImpl;
 
+    private final UserRepository userRepository;
+
+
     private UserService getUserService;
 
     @PostMapping(value = "/register")
@@ -29,8 +32,8 @@ public class UserControllerRegiter {
             @ApiResponse(code = 404, message = "The user doesn't exist"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void register(@RequestBody String data) throws RegistrationException {
-        User user = getUserService.setUser(data);
-        userServiceImpl.save(user);
+
+        userRepository.save(userServiceImpl.getCurrentUser());
     }
 
     @GetMapping
