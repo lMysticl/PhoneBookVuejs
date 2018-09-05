@@ -29,6 +29,10 @@ public class ValidationRegistration {
             throw new RegistrationException("Username is not valid");
         }
 
+        if (userRepository.findByUsername(username) != null ) {
+            throw new RegistrationException(username + " User exist");
+        }
+
         if(SecurityContextHolder.getContext().getAuthentication()!=null){
         String name = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userRepository.findByUsername(username) != null && !name.equals(username)) {
