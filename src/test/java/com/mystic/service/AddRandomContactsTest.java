@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class AddRandomContactsTest {
 
 
     @Test
+    @Ignore
     public void getClientFromExcel() throws IOException, ParseException {
 
 
